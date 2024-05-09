@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Real</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_realtime.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='gimscop.svg') }}" alt="Logo">
+        </div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/realtime">Time Real</a></li>
+            <li><a href="/dash">Experimentos</a></li>
+            <li><a href="/sobre">Sobre</a></li> 
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Página de Time Real</h1>
+        <p>Aqui você verá informações em tempo real.</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='gimscop.svg') }}" alt="Logo">
+    </div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/realtime">Time Real</a></li>
+      <li><a href="/dash">Experimentos</a></li>
+      <li><a href="/sobre">Sobre</a></li>
+    </ul>
+  </nav>
+
+  <div class="texto_1">
+    <h1>Supervisório de Controle da Planta de Destilação Multivasos</h1>
+  </div>
+
+  <div class="texto_2">
+    <p>Aqui você poderá controlar o funcionamento da planta em tempo real, assim como acompanhar as atualizações dos
+      dados</p>
+  </div>
+
+  <div class="container">
+
+    <div class="desenho-planta">
+
+     <img src="{{ url_for('static', filename='desenho planta.jpeg') }}" alt="Supervisório">
+    </div>
+
+   
+    <div class="table-container">
+     
+    <table>
+      <thead>
+        <tr>
+          <th>Reservatório</th>
+          <th>Coluna_1</th>
+          <th>Coluna_2</th>
+          <th>Coluna_3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>T0: {{ dados[0] }}</td>
+          <td>T1: {{ dados[1] }}</td>
+          <td>T2: {{ dados[2] }}</td>
+          <td>T3: {{ dados[3] }}</td>
+        </tr>
+        <tr>
+          <td>P0: {{ dados[4] }}</td>
+          <td>P1: {{ dados[5] }}</td>
+          <td>P2: {{ dados[6] }}</td>
+          <td>P3: {{ dados[7] }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>B1: {{ dados[8] }}</td>
+          <td>B2: {{ dados[9] }}</td>
+          <td>B3: {{ dados[10] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> 
+
+ 
+  
+     
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js"></script>
+      <script>
+        var socket = io();
+        var dadosAtuais = null;
+
+        socket.on('connect', function () {
+          console.log('Conectado ao servidor');
+        });
+
+        socket.on('atualizar_dados', function (dados) {
+          console.log('Dados atualizados:', dados);
+
+          if (JSON.stringify(dados) !== JSON.stringify(dadosAtuais)) {
+            // Atualizar os elementos da página com os novos dados
+            for (var key in dados) {
+              var valor = dados[key];
+              var elemento = document.getElementById(key);
+              if (elemento) {
+                elemento.textContent = 'T' + key + ': ' + valor;
+              }
+            }
+
+            dadosAtuais = dados;
+          } else {
+            console.log('Dados não atualizados.');
+          }
+        });
+      </script>
+
+    </div>
+  </div>
+
+
+</body>
+
+</html>

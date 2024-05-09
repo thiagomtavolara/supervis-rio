@@ -1,0 +1,170 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+    /* Definindo a largura como auto para que acompanhe o conteúdo */
+    max-width: 100%;
+    /* Definindo a largura máxima como 100% */
+    margin: 0 auto;
+    /* Centraliza a navbar na página */
+}
+
+.logo img {
+    width: 60px;
+    height: auto;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline;
+    margin-left: 20px;
+}
+
+.navbar li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navbar li a:hover {
+    color: #ddd;
+}
+
+.texto_1,
+.texto_2 {
+    width: 100%;
+    /* Ocupa toda a largura disponível */
+    text-align: center;
+    color: #fff;
+    /* Altera a cor do texto para branco */
+    margin: 20px auto;
+    /* Centraliza o texto com margem */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+    align-items: center;
+    
+    max-width: 100%;
+    /* Define a largura máxima como 100% */
+    margin: 20px auto;
+    /* Centraliza o container com margem */
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    /* Centraliza o título */
+}
+
+p {
+    color: #666;
+    text-align: center;
+    /* Centraliza o parágrafo */
+}
+
+/* Estilo da imagem */
+.desenho-planta {
+    margin-bottom: 10px;
+    /* Adiciona margem na parte inferior */
+    margin-right: 10px;
+    /* Adiciona margem à direita */
+    margin-left: 10px;
+    /* Adiciona margem à esquerda */
+    padding-top: 10px;
+    /* Adiciona padding na parte superior */
+}
+
+.desenho-planta img {
+    display: block;
+    /* Garante que a imagem seja exibida como bloco */
+    margin: 0 auto;
+    /* Centraliza horizontalmente a imagem */
+    max-width: calc(100% - 10px);
+    /* Define a largura máxima da imagem com a margem */
+    height: auto;
+}
+
+
+
+
+
+
+
+/* Estilo da tabela */
+.table-container {
+    overflow-x: auto;
+    /* Adiciona rolagem horizontal se a tabela for maior que o contêiner */
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: #DBEAD5;
+    width: 100%;
+    /* Define a largura da tabela como 100% */
+    margin: 0 auto 20px;
+    /* Centraliza a tabela com margem inferior */
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+/* Estilo da tabela para dispositivos móveis */
+@media screen and (max-width: 600px) {
+
+    th,
+    td {
+        padding: 10px;
+        /* Reduz o espaçamento interno das células */
+        font-size: 16px;
+        /* Define um tamanho de fonte maior */
+    }
+}
+
+
+
+
+
+
+
+
+th {
+    background-color: #333;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #B7D5AC;
+}
+
+tr:hover {
+    background-color: #F5F5F5;
+}
+
+th:hover {
+    background-color: #756e6e;
+}
