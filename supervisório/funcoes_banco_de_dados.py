@@ -1,93 +1,154 @@
 import sqlite3
 
-from flask_socketio import SocketIO, emit
-import time
 
-import socketio
+# Função para conectar ao banco de dados
 
-# Função para criar o banco de dados e a tabela
+
+def conectar_banco_dados():
+    conexao = sqlite3.connect('dados_planta.db')
+    return conexao
+
+# Função para ativar cursor ao banco de dados
+
+
+def cursor_banco_dados(conexao):
+    cursor = conexao.cursor()
+    return cursor
+
+
+# Função para criar o banco de dados(se já tiver ele só ignora)
+
+
 def criar_banco_dados():
-    # Conectar ao banco de dados (se não existir, será criado)
-    conn = sqlite3.connect('dados_planta.db')
+
+    conexao = conectar_banco_dados()
+    cursor = cursor_banco_dados(conexao)
 
     # Criar uma tabela se não existir
-    conn.execute('''
+    cursor.execute('''
         CREATE TABLE IF NOT EXISTS variaveis (
-            id INTEGER PRIMARY KEY,
-            T0 REAL,
-            T1 REAL,
-            T2 REAL,
-            T3 REAL,
-            P0 REAL,
-            P1 REAL,
-            P2 REAL,
-            P3 REAL,
-            B1 REAL,
-            B2 REAL,
-            B3 REAL
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            T0 REAL NOT NULL,
+            T1 REAL NOT NULL,
+            T2 REAL NOT NULL,
+            T3 REAL NOT NULL,
+            P0 REAL NOT NULL,
+            P1 REAL NOT NULL,
+            P2 REAL NOT NULL,
+            P3 REAL NOT NULL,
+            B1 REAL NOT NULL,
+            B2 REAL NOT NULL,
+            B3 REAL NOT NULL
         )
     ''')
 
-    # Fechar a conexão
-    conn.close()
+    conexao.commit()
+    conexao.close()
 
-# Função para inserir dados na tabela
-def inserir_dados(T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3):
-    # Conectar ao banco de dados
-    conn = sqlite3.connect('dados_planta.db')
 
-    # Inserir dados na tabela
-    dados = (T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3)
-    conn.execute('''
-        INSERT INTO variaveis (T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', dados)
+# Função para inserir no banco de dados
 
-    # Commit para salvar as alterações
-    conn.commit()
 
-    # Fechar a conexão
-    conn.close()
+def inserir_banco_dados(T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3):
+    conexao = conectar_banco_dados()
+    cursor = cursor_banco_dados(conexao)
 
-# Função para consultar dados na tabela
-def consultar_dados():
-    # Conectar ao banco de dados
-    conn = sqlite3.connect('dados_planta.db')
+    # Obter o ID máximo atual na tabela
+    cursor.execute('SELECT MAX(id) FROM variaveis')
+    max_id = cursor.fetchone()[0]
 
-    # Consultar dados
-    cursor = conn.execute('SELECT * FROM variaveis')
-    for row in cursor:
+    # Se não houver registros na tabela, define max_id como 0
+    if max_id is None:
+        max_id = 0
+
+    # Incrementa o ID máximo para obter o próximo ID
+    next_id = max_id + 1
+
+    # Inserir na tabela com o ID calculado
+    cursor.execute('''
+         INSERT INTO variaveis (id, T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (next_id, T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3))
+    conexao.commit()
+    conexao.close()
+
+
+# Função para consultar o ultimo id no banco de dados
+def consultar_ultimo_id_banco_dados():
+    conexao = conectar_banco_dados()
+    cursor = cursor_banco_dados(conexao)
+    cursor.execute(
+        'SELECT T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3 FROM variaveis ORDER BY id DESC LIMIT 1')
+    dados = cursor.fetchall()
+    cursor.close()
+    conexao.commit()
+    conexao.close()
+    return dados
+
+# Função para consultar todos os id no banco de dados
+def consultar_todos_id_banco_dados():
+    conexao = conectar_banco_dados()
+    cursor = cursor_banco_dados(conexao)
+    cursor.execute('SELECT * FROM variaveis')
+    dados = cursor.fetchall()
+    cursor.close()
+    conexao.commit()
+    conexao.close()
+    return dados
+
+
+
+# Função para atualizar no banco de dados
+
+
+def atualizar_banco_dados(id, T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3):
+    conexao = conectar_banco_dados()
+    cursor = cursor_banco_dados(conexao)
+    cursor.execute(''' 
+        UPDATE variaveis 
+        SET T0 = ?, T1 = ?, T2 = ?, T3 = ?, P0 = ?, P1 = ?, P2 = ?, P3 = ?, B1 = ?, B2 = ?, B3 = ? 
+        WHERE id = ? 
+    ''', (T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3, id))
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+# Função para deletar no banco de dados
+
+
+def deletar_banco_dados(id):
+    conexao = conectar_banco_dados()
+    cursor = cursor_banco_dados(conexao)
+    cursor.execute('''DELETE FROM variaveis WHERE id = ?''', (id,))
+    # After deletion, update the IDs
+    # Update IDs of subsequent records
+    cursor.execute('''UPDATE variaveis SET id = id - 1 WHERE id > ?''', (id,))
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+# Função para imprimir todos os id no banco de dados
+
+def imprimir_banco_dados():
+    for row in consultar_todos_id_banco_dados():
         print(row)
 
-    # Fechar a conexão
-    conn.close()
+# Função para obter o numero do último ID
+def obter_numero_do_ultimo_id():
+    conexao = conectar_banco_dados()
+    cursor = cursor_banco_dados(conexao)
+    cursor.execute('SELECT MAX(id) FROM variaveis')
+    ultimo_id = cursor.fetchone()[0]
+    cursor.close()
+    conexao.close()
+    return ultimo_id
 
-
-# Função para obter os dados mais recentes do banco de dados
-def obter_dados():
-  conn = sqlite3.connect('dados_planta.db')
-  cursor = conn.cursor()
-  cursor.execute('SELECT T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3 FROM variaveis ORDER BY id DESC LIMIT 1')
-  dados = cursor.fetchone()
-  conn.close()
-  return dados
-
-# Função para atualizar os dados e enviar via Socket.IO
-def atualizar_e_enviar_dados():
-  while True:
-    dados = obter_dados()
-    socketio.emit('atualizar_dados', dados)
-    time.sleep(5)  # Aguardar 5 segundos antes de verificar novamente
+#criar_banco_dados()
+inserir_banco_dados(100, 22, 25.2, 22.8, 10.1, 9.8, 9.9, 10.2, 3.5, 4.0, 3.8)
+# atualizar_banco_dados(1, 10, 62, 25.2, 22.8, 10.1, 9.8, 9.9, 10.2, 3.5, 4.0, 3.8)
+#deletar_banco_dados(1)
+#imprimir_banco_dados()
 
 
 
-
-# Criar o banco de dados e a tabela
-##criar_banco_dados()
-
-# Inserir dados de exemplo na tabela
-inserir_dados(5, 26, 5, 22.8, 10.1, 9.8, 9.9, 10.2, 3.5, 4.0, 3.8)
-
-# Consultar e exibir os dados da tabela
-print("Dados armazenados na tabela:")
-consultar_dados()
+#print(obter_numero_do_ultimo_id())

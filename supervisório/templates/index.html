@@ -5,21 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Controle</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">
+
 </head>
 
 <body>
+
   <nav class="navbar">
     <div class="logo">
       <img src="{{ url_for('static', filename='gimscop.svg') }}" alt="Logo">
     </div>
     <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/realtime">Time Real</a></li>
-      <li><a href="/dash">Experimentos</a></li>
-      <li><a href="/sobre">Sobre</a></li>
+      <li><a href="/" class="tooltip1" title="Página Inicial"><i class="fas fa-home"></i></a></li>
+      <li><a href="/realtime" class="tooltip1" title="Tempo Real"><i class="fas fa-clock"></i></a></li>
+      <li><a href="/dash" class="tooltip1" title="Dashboard"><i class="fas fa-flask"></i></a></li>
+      <li><a href="/sobre" class="tooltip1" title="Sobre"><i class="fas fa-info-circle"></i></a></li>
     </ul>
   </nav>
+
 
   <div class="texto_1">
     <h1>Supervisório de Controle da Planta de Destilação Multivasos</h1>
@@ -28,86 +32,372 @@
   <div class="texto_2">
     <p>Aqui você poderá controlar o funcionamento da planta em tempo real, assim como acompanhar as atualizações dos
       dados</p>
+
   </div>
 
   <div class="container">
 
+    <!-- IMAGEM PLANTA///////////////////////////////-->
     <div class="desenho-planta">
-
-     <img src="{{ url_for('static', filename='desenho planta.jpeg') }}" alt="Supervisório">
+      <img src="{{ url_for('static', filename='desenho planta.jpeg') }}" alt="Supervisório">
+    </div>
+    <!-- TABELA ///////////////////////////////-->
+    <div class="table-wrapper">
+      <div class="table-container">
+        <table id="data-table">
+          <thead>
+            <tr>
+              <th>Reservatório</th>
+              <th>Coluna_1</th>
+              <th>Coluna_2</th>
+              <th>Coluna_3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>T0: {{dados[0][0]}} </td>
+              <td>T1: {{dados[0][1]}} </td>
+              <td>T2: {{dados[0][2]}} </td>
+              <td>T3: {{dados[0][3]}} </td>
+            </tr>
+            <tr>
+              <td>P0: {{dados[0][4]}} </td>
+              <td>P1: {{dados[0][5]}} </td>
+              <td>P2: {{dados[0][6]}} </td>
+              <td>P3: {{dados[0][7]}} </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>B1: {{dados[0][8]}} </td>
+              <td>B2: {{dados[0][9]}} </td>
+              <td>B3: {{dados[0][10]}} </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-   
-    <div class="table-container">
-     
-    <table>
-      <thead>
-        <tr>
-          <th>Reservatório</th>
-          <th>Coluna_1</th>
-          <th>Coluna_2</th>
-          <th>Coluna_3</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>T0: {{ dados[0] }}</td>
-          <td>T1: {{ dados[1] }}</td>
-          <td>T2: {{ dados[2] }}</td>
-          <td>T3: {{ dados[3] }}</td>
-        </tr>
-        <tr>
-          <td>P0: {{ dados[4] }}</td>
-          <td>P1: {{ dados[5] }}</td>
-          <td>P2: {{ dados[6] }}</td>
-          <td>P3: {{ dados[7] }}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>B1: {{ dados[8] }}</td>
-          <td>B2: {{ dados[9] }}</td>
-          <td>B3: {{ dados[10] }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div> 
 
- 
-  
-     
+    <!-- Configurações ///////////////////////////////-->
+    <div class="content">
+      <h1>Configurações</h1>
+      <form id="form">
+        <div>
+          <input type="text" id="input_T0" placeholder="T0" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_T1" placeholder="T1" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_T2" placeholder="T2" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_T3" placeholder="T3" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_P0" placeholder="P0" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_P1" placeholder="P1" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_P2" placeholder="P2" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_P3" placeholder="P3" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_B1" placeholder="B1" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_B2" placeholder="B2" class="inputs required">
+        </div>
+        <div>
+          <input type="text" id="input_B3" placeholder="B3" class="inputs required">
+        </div>
+        <button id="submit-button" type="submit">Enviar</button>
+      </form>
+      <div id="tooltip" class="tooltip"></div>
+    </div>
+  </div>
 
+  <!--PEGANDO DADOS VIA Configurações ///////////////////////////////-->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Seleciona o formulário
+      var form = document.getElementById('form');
+      // Adiciona um evento de envio ao formulário
+      form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Evita o envio do formulário
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js"></script>
-      <script>
-        var socket = io();
-        var dadosAtuais = null;
+        // Seleciona os inputs
+        var inputs = document.querySelectorAll('.inputs');
+        // Cria um objeto para armazenar os valores dos inputs
+        var inputData = {};
 
-        socket.on('connect', function () {
-          console.log('Conectado ao servidor');
+        // Itera sobre os inputs e armazena seus valores no objeto
+        inputs.forEach(function (input) {
+          inputData[input.placeholder] = input.value;
         });
 
-        socket.on('atualizar_dados', function (dados) {
-          console.log('Dados atualizados:', dados);
+        // Exibe os valores no console (você pode enviar esses dados para o servidor)
+        console.log(inputData);
 
-          if (JSON.stringify(dados) !== JSON.stringify(dadosAtuais)) {
-            // Atualizar os elementos da página com os novos dados
-            for (var key in dados) {
-              var valor = dados[key];
-              var elemento = document.getElementById(key);
-              if (elemento) {
-                elemento.textContent = 'T' + key + ': ' + valor;
-              }
-            }
+        // Cria o tooltip
+        var tooltip = document.createElement('div');
+        tooltip.textContent = 'Enviado com sucesso!';
+        tooltip.classList.add('tooltip', 'show'); // Adiciona a classe 'show' para tornar o tooltip visível
 
-            dadosAtuais = dados;
-          } else {
-            console.log('Dados não atualizados.');
-          }
-        });
-      </script>
+        // Remove o tooltip anterior se houver
+        var oldTooltip = document.querySelector('.content .tooltip');
+        if (oldTooltip) {
+          oldTooltip.remove();
+        }
+
+        // Adiciona o tooltip à content
+        document.querySelector('.content').appendChild(tooltip);
+
+        // Oculta o tooltip após alguns segundos
+        setTimeout(function () {
+          tooltip.remove();
+        }, 3000); // 3000 milissegundos = 3 segundos
+      });
+    });
+
+
+
+  </script>
+
+  <!-- Botão para começar o experimento ///////////////////////////-->
+
+  <div class="container2">
+    <input type="checkbox" id="checkbox" />
+    <label for="checkbox" class="switch">
+      <span class="label-text">COMEÇAR</span>
+      <svg class="slider" viewBox="0 0 512 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z">
+        </path>
+      </svg>
+    </label>
+  </div>
+
+  <div class="terminal-loader hidden">
+    <div class="terminal-header">
+      <div class="terminal-title">Status</div>
+      <div class="terminal-controls">
+        <div class="control close"></div>
+        <div class="control minimize"></div>
+        <div class="control maximize"></div>
+      </div>
+    </div>
+    <div class="text">Experimento em execução...</div>
+  </div>
+  <script>
+    const checkbox = document.getElementById('checkbox');
+    const labelText = document.querySelector('.label-text');
+    const terminalLoader = document.querySelector('.terminal-loader');
+
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        labelText.textContent = 'PARAR';
+        terminalLoader.classList.remove('hidden');
+      } else {
+        labelText.textContent = 'COMEÇAR';
+        terminalLoader.classList.add('hidden');
+      }
+    });
+  </script>
+
+  <!-- Abaixo tudo que tem haver com o gráfico ///////////////////////////////////////////////-->
+  <div class="container">
+    <div class="radio-inputs">
+      <label class="radio">
+        <input type="radio" name="grafico" value="Nenhum" checked> <!-- Adicionando o atributo checked -->
+        <span class="name">Nenhum</span>
+      </label>
+      <label class="radio">
+        <input type="radio" name="grafico" value="Temperaturas">
+        <span class="name">Temperaturas</span>
+      </label>
+      <label class="radio">
+        <input type="radio" name="grafico" value="Pesos">
+        <span class="name">Pesos</span>
+      </label>
+      <label class="radio">
+        <input type="radio" name="grafico" value="Vazoes">
+        <span class="name">Vazões</span>
+      </label>
 
     </div>
   </div>
+  <canvas id="graficoSelecionado"></canvas>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script>
+    document.querySelectorAll('.radio-inputs input[type="radio"]').forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        var graficoSelecionado = this.value;
+        var canvas = document.getElementById('graficoSelecionado');
+        var ctx = canvas.getContext('2d');
+
+        // Limpar o canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Remover gráficos anteriores
+        if (window.graficoAtual) {
+          window.graficoAtual.destroy();
+        }
+        if (graficoSelecionado === 'Nenhum') {
+          return;
+        }
+        // Desenhar novo gráfico selecionado
+        else if (graficoSelecionado === 'Temperaturas') {
+          window.graficoAtual = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
+              datasets: [
+                {
+                  label: 'T0',
+                  data: [20, 30],
+                  borderColor: '#4CAF50',
+                  backgroundColor: 'transparent',
+                },
+                {
+                  label: 'T1',
+                  data: [300, 53, 10, 65, 70],
+                  borderColor: '#2196F3',
+                  backgroundColor: 'transparent',
+                },
+                {
+                  label: 'T2',
+                  data: [50, 20, 200, 56, 48],
+                  borderColor: '#FF9800',
+                  backgroundColor: 'transparent',
+                },
+                {
+                  label: 'T3',
+                  data: [51, 51, 541, 152, 12],
+                  borderColor: '#9C27B0',
+                  backgroundColor: 'transparent',
+                },
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Temperaturas',
+                fontSize: 20
+              },
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    fontStyle: "bold"
+                  }
+                }]
+              }
+            }
+          });
+        } else if (graficoSelecionado === 'Pesos') {
+          window.graficoAtual = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
+              datasets: [
+                {
+                  label: 'P0',
+                  data: [20, 30],
+                  borderColor: '#8BC34A',
+                  backgroundColor: 'transparent',
+                },
+                {
+                  label: 'P1',
+                  data: [300, 53, 10, 65, 70],
+                  borderColor: '#03A9F4',
+                  backgroundColor: 'transparent',
+                },
+                {
+                  label: 'P2',
+                  data: [50, 20, 200, 56, 48],
+                  borderColor: '#00BCD4',
+                  backgroundColor: 'transparent',
+                },
+                {
+                  label: 'P3',
+                  data: [51, 51, 541, 152, 12],
+                  borderColor: '#009688',
+                  backgroundColor: 'transparent',
+                },
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Pesos',
+                fontSize: 20
+              },
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    fontStyle: "bold"
+                  }
+                }]
+              }
+            }
+          });
+        } else if (graficoSelecionado === 'Vazoes') {
+          window.graficoAtual = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
+              datasets: [
+                {
+                  label: 'B1',
+                  data: [300, 53, 10, 65, 70],
+                  borderColor: '#FF9800',
+                  backgroundColor: 'transparent',
+                },
+                {
+                  label: 'B2',
+                  data: [50, 20, 200, 56, 48],
+                  borderColor: '#9C27B0',
+                  backgroundColor: 'transparent',
+                },
+                {
+                  label: 'B3',
+                  data: [51, 51, 541, 152, 12],
+                  borderColor: '#4CAF50',
+                  backgroundColor: 'transparent',
+                },
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Vazões',
+                fontSize: 20
+              },
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    fontStyle: "bold"
+                  }
+                }]
+              }
+            }
+          });
+        } else if (graficoSelecionado === 'Todos') {
+        }
+
+      });
+    });
+
+
+  </script>
+
+
+
 
 
 </body>

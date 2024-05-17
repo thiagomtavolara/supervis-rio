@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre</title>
-   <link rel="stylesheet" href="{{ url_for('static', filename='style_about.css') }}">
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Adicionando Font Awesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">
+
 <body>
     <nav class="navbar">
         <div class="logo">
             <img src="{{ url_for('static', filename='gimscop.svg') }}" alt="Logo">
         </div>
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/realtime">Time Real</a></li>
-            <li><a href="/dash">Experimentos</a></li>
-            <li><a href="/sobre">Sobre</a></li>
+            <li><a href="/"><i class="fas fa-home"></i></a></li>
+            <li><a href="/realtime"><i class="fas fa-clock"></i></a></li>
+            <li><a href="/dash"><i class="fas fa-flask"></i></a></li>
+            <li><a href="/sobre"><i class="fas fa-info-circle"></i></a></li>
         </ul>
     </nav>
 
@@ -24,4 +27,5 @@
         <p>Esta é a página "Sobre" do meu site.</p>
     </div>
 </body>
+
 </html>
