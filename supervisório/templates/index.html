@@ -7,8 +7,9 @@
   <title>Controle</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 </head>
+
 
 <body>
 
@@ -22,7 +23,9 @@
       <li><a href="/dash" class="tooltip1" title="Dashboard"><i class="fas fa-flask"></i></a></li>
       <li><a href="/sobre" class="tooltip1" title="Sobre"><i class="fas fa-info-circle"></i></a></li>
     </ul>
+
   </nav>
+
 
 
   <div class="texto_1">
@@ -55,22 +58,22 @@
           </thead>
           <tbody>
             <tr>
-              <td>T0: {{dados[0][0]}} </td>
-              <td>T1: {{dados[0][1]}} </td>
-              <td>T2: {{dados[0][2]}} </td>
-              <td>T3: {{dados[0][3]}} </td>
+              <td><b>T0: {{dados[0][0]}} </b></td>
+              <td><b>T1: {{dados[0][1]}} </b></td>
+              <td><b>T2: {{dados[0][2]}} </b></td>
+              <td><b>T3: {{dados[0][3]}}</b> </td>
             </tr>
             <tr>
-              <td>P0: {{dados[0][4]}} </td>
-              <td>P1: {{dados[0][5]}} </td>
-              <td>P2: {{dados[0][6]}} </td>
-              <td>P3: {{dados[0][7]}} </td>
+              <td><b>P0: {{dados[0][4]}} </b></td>
+              <td><b>P1: {{dados[0][5]}} </b></td>
+              <td><b>P2: {{dados[0][6]}} </b></td>
+              <td><b>P3: {{dados[0][7]}} </b></td>
             </tr>
             <tr>
               <td></td>
-              <td>B1: {{dados[0][8]}} </td>
-              <td>B2: {{dados[0][9]}} </td>
-              <td>B3: {{dados[0][10]}} </td>
+              <td><b>B1: {{dados[0][8]}} </b></td>
+              <td><b>B2: {{dados[0][9]}} </b></td>
+              <td><b>B3: {{dados[0][10]}} </b></td>
             </tr>
           </tbody>
         </table>
@@ -115,10 +118,16 @@
         <div>
           <input type="text" id="input_B3" placeholder="B3" class="inputs required">
         </div>
-        <button id="submit-button" type="submit">Enviar</button>
+        <button id="submit-button" type="submit" class="Btn"><b>Editar</b>
+          <svg class="svg" viewBox="0 0 512 512">
+            <path
+              d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z">
+            </path>
+          </svg></button>
       </form>
       <div id="tooltip" class="tooltip"></div>
     </div>
+
   </div>
 
   <!--PEGANDO DADOS VIA Configurações ///////////////////////////////-->
@@ -145,7 +154,7 @@
 
         // Cria o tooltip
         var tooltip = document.createElement('div');
-        tooltip.textContent = 'Enviado com sucesso!';
+        tooltip.textContent = 'Editado com sucesso!';
         tooltip.classList.add('tooltip', 'show'); // Adiciona a classe 'show' para tornar o tooltip visível
 
         // Remove o tooltip anterior se houver
@@ -168,9 +177,10 @@
 
   </script>
 
-  <!-- Botão para começar o experimento ///////////////////////////-->
+  <!-- Botão para começar o experimento E BOTÃO PDF ///////////////////////////-->
 
   <div class="container2">
+    <!--COMEÇAR-->
     <input type="checkbox" id="checkbox" />
     <label for="checkbox" class="switch">
       <span class="label-text">COMEÇAR</span>
@@ -180,8 +190,32 @@
         </path>
       </svg>
     </label>
+    <!--PDF-->
+    <div class="pdf" id="pdf">
+      <button class="pdf-btn">
+        <span class="pdf-wrapper">
+          <span class="pdf-container">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 92 75">
+              <path stroke-width="5" stroke="black"
+                d="M12 37.5H80C85.2467 37.5 89.5 41.7533 89.5 47V69C89.5 70.933 87.933 72.5 86 72.5H6C4.067 72.5 2.5 70.933 2.5 69V47C2.5 41.7533 6.75329 37.5 12 37.5Z">
+              </path>
+              <mask fill="white" id="path-2-inside-1_30_7">
+                <path d="M12 12C12 5.37258 17.3726 0 24 0H57C70.2548 0 81 10.7452 81 24V29H12V12Z"></path>
+              </mask>
+              <path mask="url(#path-2-inside-1_30_7)" fill="black"
+                d="M7 12C7 2.61116 14.6112 -5 24 -5H57C73.0163 -5 86 7.98374 86 24H76C76 13.5066 67.4934 5 57 5H24C20.134 5 17 8.13401 17 12H7ZM81 29H12H81ZM7 29V12C7 2.61116 14.6112 -5 24 -5V5C20.134 5 17 8.13401 17 12V29H7ZM57 -5C73.0163 -5 86 7.98374 86 24V29H76V24C76 13.5066 67.4934 5 57 5V-5Z">
+              </path>
+              <circle fill="black" r="3" cy="49" cx="78"></circle>
+            </svg>
+          </span>
+          <span class="pdf-page-wrapper">
+            <span class="pdf-page"></span>
+          </span>
+        </span>
+        PDF
+      </button>
+    </div>
   </div>
-
   <div class="terminal-loader hidden">
     <div class="terminal-header">
       <div class="terminal-title">Status</div>
@@ -202,6 +236,18 @@
       if (checkbox.checked) {
         labelText.textContent = 'PARAR';
         terminalLoader.classList.remove('hidden');
+
+        // Fazendo uma requisição para iniciar o Arduino IDE
+        fetch('/start_arduino')
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'success') {
+              console.log(data.message);
+            } else {
+              console.error(data.message);
+            }
+          })
+          .catch(error => console.error('Error:', error));
       } else {
         labelText.textContent = 'COMEÇAR';
         terminalLoader.classList.add('hidden');
@@ -397,6 +443,45 @@
   </script>
 
 
+
+
+
+
+
+
+  <!-- Rodapé ///////////////////////////////-->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section about">
+        <h2>Sobre Nós</h2>
+        <p>Somos uma equipe dedicada ao desenvolvimento de soluções de controle e automação industrial.</p>
+      </div>
+      <div class="footer-section links">
+        <h2>Links Rápidos</h2>
+        <ul>
+          <li><a href="/">Página Inicial</a></li>
+          <li><a href="/realtime">Tempo Real</a></li>
+          <li><a href="/dash">Dashboard</a></li>
+          <li><a href="/sobre">Sobre</a></li>
+        </ul>
+      </div>
+      <div class="footer-section contact">
+        <h2>Contato</h2>
+        <div class="contact-info">
+          <i class="bi bi-envelope"></i><span>contato@gmail.com</span>
+        </div>
+        <div class="contact-info">
+          <i class="bi bi-telephone"></i><span>(11) 1234-5678</span>
+        </div>
+        <div class="contact-info">
+          <i class="bi bi-geo-alt"></i><span>Rua Exemplo, 123 - Cidade, Estado</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2024 Controle. Todos os direitos reservados.
+    </div>
+  </footer>
 
 
 

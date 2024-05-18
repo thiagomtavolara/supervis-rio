@@ -1,4 +1,4 @@
-/* cores */
+/* cores ////////////////////////////////////*/
 :root {
     --color-green1: #B8C626ff;
     --color-green2: #CAD45Fff;
@@ -25,6 +25,7 @@
 }
 
 body {
+    min-height: 100vh;
     font-family: Arial, sans-serif;
     background-color: var(--color-white);
     margin: 0;
@@ -32,6 +33,9 @@ body {
 }
 
 .navbar {
+   
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
     background-color: var(--color-dark3);
     overflow: hidden;
     padding: 10px 20px;
@@ -71,6 +75,8 @@ body {
 .navbar li a:hover {
     color: var(--color-white);
 }
+
+
 
 .texto_1,
 .texto_2 {
@@ -139,6 +145,7 @@ h1 {
     color: var(--color-dark2);
     text-align: center;
     /* Centraliza o título */
+    
 }
 
 p {
@@ -162,6 +169,7 @@ p {
 
 
 /* Estilo da tabela /////////////////////////////// */
+
 
 table {
     border: 1px solid var(--color-dark2);
@@ -190,8 +198,6 @@ th {
 tr:nth-child(even) {
     background-color: var(--color-green2);
 }
-
-
 
 
 
@@ -239,7 +245,7 @@ tr:nth-child(even) {
 
 }
 
-
+/* //////////////////////////////////////////////////////// */
 
 
 /* Estilo formulário ///////////////////////////////////////*/
@@ -259,6 +265,7 @@ tr:nth-child(even) {
     align-items: center;
     /* Centralizando verticalmente */
     gap: 1rem;
+    
 }
 
 
@@ -303,44 +310,73 @@ tr:nth-child(even) {
 .inputs:focus {
     border-color: var(--color-blue1);
     border-width: 3px;
-    border: 2px solid transparent;
-    color: #fff;
-    box-shadow: 3px 3px 10px rgba(0,0,0,1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4),
-    inset 3px 3px 10px rgba(0,0,0,1),
-    inset -1px -1px 6px rgba(255, 255, 255, 0.4);
-
-}
-
-
-/* Estilo do botão ENVIAR */
-button[type="submit"] {
-    padding: 17px 40px;
-    border-radius: 10px;
-    border: 0;
-    background-color: var(--color-grey);
-    letter-spacing: 1.5px;
-    font-size: 15px;
-    transition: all 0.3s ease;
-    box-shadow: var(--color-dark3) 0px 10px 0px 0px;
+    border: 3px solid var(--color-blue1);
     color: var(--color-dark1);
+  
+
+}
+
+/* //////////////////////////////////////////////////////// */
+
+
+
+
+
+/* Estilo do botão EDITAR //////////////////////////// */
+.Btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100px;
+    height: 40px;
+    border: none;
+    padding: 0px 20px;
+    background-color: var(--color-grey);
+    color: var(--color-dark1);
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    
     cursor: pointer;
-}
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px var(--color-dark1);
+    transition-duration: .3s;
+  }
+  
+  .svg {
+    width: 13px;
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    fill: var(--color-dark1);
+    transition-duration: .3s;
+  }
+  
+  .Btn:hover {
+    color: transparent;
+  }
+  
+  .Btn:hover svg {
+    right: 43%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    transition-duration: .3s;
+  }
+  
+  .Btn:active {
+    transform: translate(3px , 3px);
+    transition-duration: .3s;
+    box-shadow: 2px 2px 0px rgb(140, 32, 212);
+  }
 
-button:hover {
-    box-shadow: var(--color-dark3) 0px 7px 0px 0px;
-}
-
-button:active {
-    background-color: var(--color-dark3);
-    /*50, 168, 80*/
-    box-shadow: var(--color-dark3) 0px 0px 0px 0px;
-    transform: translateY(5px);
-    transition: 200ms;
-}
+/* //////////////////////////////////////////////////////// */
 
 
-/* Estilo do botão COMEÇAR */
+
+
+
+/* //// Estilo do botão COMEÇAR  //////////////////////////////// */
 
 .container2 {
     display: flex;
@@ -353,13 +389,13 @@ button:active {
     flex-direction: column;
     margin-top: 30px;
     margin-bottom: 30px;
-  }
+}
 
-  #checkbox {
+#checkbox {
     display: none;
-  }
+}
 
-  .switch {
+.switch {
     position: relative;
     width: fit-content;
     padding: 10px 20px;
@@ -375,41 +411,54 @@ button:active {
     font-size: 0.9em;
     font-weight: 600;
     transition: all 0.3s;
-  }
+}
 
-  .switch svg path {
+.switch svg path {
     fill: var(--color-white);
-  }
+}
 
-  #checkbox:checked + .switch {
+#checkbox:checked+.switch {
     background-color: var(--color-blue3);
     box-shadow: 0px 0px 5px var(--color-blue3);
-  }
+}
 
-  /* Estilos do cursor e animação PARA STATUS*/
-  .hidden {
+/* //////////////////////////////////////////////////////// */
+
+
+
+
+
+
+/*// Estilos do cursor e animação PARA STATUS ///////////////////////////*/
+.hidden {
     display: none;
-  }
+}
 
-  @keyframes blinkCursor {
+@keyframes blinkCursor {
     50% {
-      border-right-color: transparent;
+        border-right-color: transparent;
     }
-  }
+}
 
-  @keyframes typeAndDelete {
-    0%, 10% {
-      width: 0;
-    }
-    45%, 55% {
-      width: 20em;
-    }
-    90%, 100% {
-      width: 0;
-    }
-  }
+@keyframes typeAndDelete {
 
-  .terminal-loader {
+    0%,
+    10% {
+        width: 0;
+    }
+
+    45%,
+    55% {
+        width: 20em;
+    }
+
+    90%,
+    100% {
+        width: 0;
+    }
+}
+
+.terminal-loader {
     border: 0.1em solid var(--color-dark3);
     background-color: var(--color-grey);
     color: var(--color-dark1);
@@ -423,9 +472,9 @@ button:active {
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
-  }
+}
 
-  .terminal-header {
+.terminal-header {
     position: absolute;
     top: 0;
     left: 0;
@@ -436,83 +485,85 @@ button:active {
     border-top-right-radius: 4px;
     padding: 0 0.4em;
     box-sizing: border-box;
-  }
+}
 
-  .terminal-controls {
+.terminal-controls {
     float: right;
-  }
+}
 
-  .control {
+.control {
     display: inline-block;
     width: 0.6em;
     height: 0.6em;
     margin-left: 0.4em;
     border-radius: 50%;
     background-color: #777;
-  }
+}
 
-  .control.close {
+.control.close {
     background-color: var(--color-blue7);
-  }
+}
 
-  .control.minimize {
+.control.minimize {
     background-color: var(--color-blue6);
-  }
+}
 
-  .control.maximize {
+.control.maximize {
     background-color: var(--color-blue5);
-  }
+}
 
-  .terminal-title {
+.terminal-title {
     float: left;
     line-height: 1.5em;
     color: #eee;
-  }
+}
 
-  .text {
+.text {
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
     border-right: 0.2em solid var(--color-blue5);
     animation: typeAndDelete 4s steps(11) infinite, blinkCursor 0.5s step-end infinite alternate;
     margin-top: 1.5em;
-  }
-  
+}
+
+/* //////////////////////////////////////////////////////// */
 
 
 
-/* Radio Inputs */
+/* /////////////// Radio Inputs //////////////////////////////////////*/
 
 .container3 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* ocupa a altura total da janela de visualização */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* ocupa a altura total da janela de visualização */
 }
 
 .radio-inputs {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 0.5rem;
-  background-color: #EEE;
-  box-sizing: border-box;
-  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-  padding: 0.25rem;
-  width: 300px;
-  font-size: 14px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 300px;
+    font-size: 14px;
 }
-  
-  .radio-inputs .radio {
+
+.radio-inputs .radio {
     flex: 1 1 auto;
     text-align: center;
-  }
-  
-  .radio-inputs .radio input {
+}
+
+.radio-inputs .radio input {
     display: none;
-  }
-  
-  .radio-inputs .radio .name {
+}
+
+.radio-inputs .radio .name {
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -522,9 +573,157 @@ button:active {
     padding: .5rem 0;
     color: rgba(51, 65, 85, 1);
     transition: all .15s ease-in-out;
-  }
-  
-  .radio-inputs .radio input:checked + .name {
+}
+
+.radio-inputs .radio input:checked+.name {
     background-color: #fff;
     font-weight: 600;
+}
+
+/* //////////////////////////////////////////////////////// */
+
+
+
+/*/////// Rodape ///////////////////////////////////////*/
+
+footer {
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    margin-top: 80px;
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.footer-section {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+}
+
+.footer-section h2 {
+    margin-bottom: 15px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-bottom {
+    padding: 10px 0;
+    border-top: 1px solid #777;
+}
+
+.contact-info {
+    margin-bottom: 10px;
+}
+
+.contact-info i {
+    margin-right: 5px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .footer-section {
+        flex-basis: 100%;
+        /* Take full width */
+        max-width: 100%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        /* Stack items vertically */
+        align-items: center;
+        /* Center items horizontally */
+    }
+}
+
+/* //////////////////////////////////////////////////////// */
+
+/* ///////PDF GRÁFICOS ///////////////////////////////////////////////// */
+.pdf{
+    display: flex;
+}
+
+.pdf-btn {
+    
+    width: 100px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-dark1);
+    border-radius: 10px;
+    gap: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    overflow: hidden;
+    font-weight: 500;
+    box-shadow: 0px 10px 10px var(--color-dark1);
+    transition: all 0.3s;
   }
+  .pdf-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 100%;
+  }
+  .pdf-container {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  
+  .pdf-container svg {
+    width: 100%;
+    height: auto;
+    transform: translateY(4px);
+  }
+  .pdf-page-wrapper {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .pdf-page {
+    width: 70%;
+    height: 10px;
+    border: 1px solid var(--color-dark1);
+    background-color: var(--color-white);
+    transform: translateY(0px);
+    transition: all 0.3s;
+    transform-origin: top;
+  }
+  .pdf-btn:hover .pdf-page {
+    height: 16px;
+    background-color: var(--color-white);
+  }
+  .pdf-btn:hover {
+    background-color: var(--color-white);
+  }
+  
+/* //////////////////////////////////////////////////////// */
