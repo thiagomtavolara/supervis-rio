@@ -1,6 +1,6 @@
 import subprocess
 import os
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, redirect, render_template, request, jsonify
 from dash_application.dash import create_dash_application
 import sqlite3
 from flask_socketio import SocketIO, emit
@@ -53,12 +53,33 @@ app.config['SECRET_KEY'] = 'your_secret_key_here'
 socketio = SocketIO(app)
 
 
-@app.route('/')
+@app.route('/index')
 def index():
     dados = funcoes_banco_de_dados.consultar_ultimo_id_banco_dados()
 
     return render_template('index.html', dados=dados)
 
+
+@app.route('/')
+def home():
+    return render_template('login.html')
+
+
+# Rota para realizar o login
+@app.route('/login', methods=['POST'])
+def login():
+
+    nome = request.form.get('username')
+    senha = request.form.get('password')
+
+ #Deixei um usuário e senha de teste para testar se o login funciona
+ #Porém pode ser criado um sistema de usuario e senha com json ou banco de dados
+    if nome == 'Thiago' and senha == '123':
+
+        return redirect('/index')
+    else:
+
+        return redirect('/')
 
 # Rota para conectar o cliente ao servidor Socket.IO
 @socketio.on('connect')

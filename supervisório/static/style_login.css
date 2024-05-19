@@ -1,0 +1,119 @@
+/* cores ////////////////////////////////////*/
+:root {
+    --color-green1: #B8C626ff;
+    --color-green2: #CAD45Fff;
+    --color-dark1: #222222ff;
+    --color-dark2: #1e1e1e;
+    --color-dark3: #333333ff;
+    --color-grey: #d3d3d3d5;
+    --color-blue1: #176090ff;
+    --color-blue2: #176199ff;
+    --color-blue3: #3072A4ff;
+    --color-blue4: #8DA9C4;
+    --color-blue5: #087deb;
+    --color-blue6: #3399f8;
+    --color-blue7: #88bef0;
+    --color-white: #FAF9FEff;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--color-grey); /* Cor de fundo da página */
+}
+
+
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 2em;
+    background-color: var(--color-dark2);
+    border-radius: 25px;
+    transition: transform 0.4s ease-in-out, border 0.4s ease-in-out;
+    width: 100%;
+    max-width: 400px; /* Largura máxima do formulário */
+    box-shadow: 6px 6px 6px 6px var(--color-blue3);
+}
+
+.form:hover {
+    transform: scale(1.05) translateY(-10px); /* Escala e move para cima */
+    border: 2px solid var(--color-blue3);
+}
+
+#heading {
+    text-align: center;
+    margin: 0;
+    color: var(--color-white);
+    font-size: 1.5em;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.6em;
+    border-radius: 25px;
+    background-color: #171717;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+}
+
+.input-icon {
+    height: 1.3em;
+    width: 1.3em;
+    fill: white;
+}
+
+.input-field {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: var(--color-grey);
+}
+
+.form .btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5em;
+}
+
+.button1 {
+    padding: 0.5em 1.1em;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    transition: .4s ease-in-out;
+    background-color: #252525;
+    color: white;
+}
+
+.button1:hover {
+    background-color: black;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .form {
+        padding: 1.5em;
+        width: 80%;
+        box-shadow: 4px 4px 4px 4px var(--color-blue3);
+    }
+
+    #heading {
+        font-size: 1.2em;
+    }
+
+    .button1 {
+        padding: 0.5em;
+    }
+
+    .form.focus {
+        transform: translateY(-20vh); /* Move o formulário mais para cima em dispositivos móveis */
+    }
+}

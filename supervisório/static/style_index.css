@@ -546,9 +546,9 @@ tr:nth-child(even) {
     display: flex;
     flex-wrap: wrap;
     border-radius: 0.5rem;
-    background-color: #EEE;
+    background-color: var(--color-white);
     box-sizing: border-box;
-    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 0 0px 1px var(--color-dark2);
     padding: 0.25rem;
     width: 300px;
     font-size: 14px;
@@ -571,14 +571,15 @@ tr:nth-child(even) {
     border-radius: 0.5rem;
     border: none;
     padding: .5rem 0;
-    color: rgba(51, 65, 85, 1);
+    color: var(--color-dark1);
     transition: all .15s ease-in-out;
 }
 
 .radio-inputs .radio input:checked+.name {
-    background-color: #fff;
+    background-color: var(--color-blue6);
     font-weight: 600;
 }
+
 
 /* //////////////////////////////////////////////////////// */
 
