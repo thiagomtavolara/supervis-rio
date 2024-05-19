@@ -6,6 +6,7 @@ import sqlite3
 from flask_socketio import SocketIO, emit
 import threading
 import time
+
 import funcoes_banco_de_dados
 
 app = Flask(__name__)
