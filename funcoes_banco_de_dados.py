@@ -100,7 +100,6 @@ def consultar_todos_id_banco_dados():
 
 # Função para atualizar no banco de dados
 
-
 def atualizar_banco_dados(id, T0, T1, T2, T3, P0, P1, P2, P3, B1, B2, B3):
     conexao = conectar_banco_dados()
     cursor = cursor_banco_dados(conexao)
@@ -144,7 +143,7 @@ def obter_numero_do_ultimo_id():
     return ultimo_id
 
 #criar_banco_dados()
-inserir_banco_dados(100, 22, 25.2, 22.8, 10.1, 9.8, 9.9, 10.2, 3.5, 4.0, 3.8)
+#inserir_banco_dados(100, 22, 25.2, 22.8, 10.1, 9.8, 9.9, 10.2, 3.5, 4.0, 3.8)
 # atualizar_banco_dados(1, 10, 62, 25.2, 22.8, 10.1, 9.8, 9.9, 10.2, 3.5, 4.0, 3.8)
 #deletar_banco_dados(1)
 #imprimir_banco_dados()
