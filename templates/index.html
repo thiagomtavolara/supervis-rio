@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='style_index.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
 </head>
-
 
 <body>
 
@@ -23,10 +23,7 @@
       <li><a href="/dash" class="tooltip1" title="Dashboard"><i class="fas fa-flask"></i></a></li>
       <li><a href="/sobre" class="tooltip1" title="Sobre"><i class="fas fa-info-circle"></i></a></li>
     </ul>
-
   </nav>
-
-
 
   <div class="texto_1">
     <h1>Supervisório de Controle da Planta de Destilação Multivasos</h1>
@@ -35,16 +32,12 @@
   <div class="texto_2">
     <p>Aqui você poderá controlar o funcionamento da planta em tempo real, assim como acompanhar as atualizações dos
       dados</p>
-
   </div>
 
   <div class="container">
-
-    <!-- IMAGEM PLANTA///////////////////////////////-->
     <div class="desenho-planta">
       <img src="{{ url_for('static', filename='desenho planta.jpeg') }}" alt="Supervisório">
     </div>
-    <!-- TABELA ///////////////////////////////-->
     <div class="table-wrapper">
       <div class="table-container">
         <table id="data-table">
@@ -58,22 +51,22 @@
           </thead>
           <tbody>
             <tr>
-              <td><b>T0: {{dados_experimentos[0][0]}} </b></td>
-              <td><b>T1: {{dados_experimentos[0][1]}} </b></td>
-              <td><b>T2: {{dados_experimentos[0][2]}} </b></td>
-              <td><b>T3: {{dados_experimentos[0][3]}}</b> </td>
+              <td><b>T0: <span id="T0">{{dados_experimentos[0][0]}}</span></b></td>
+              <td><b>T1: <span id="T1">{{dados_experimentos[0][1]}}</span></b></td>
+              <td><b>T2: <span id="T2">{{dados_experimentos[0][2]}}</span></b></td>
+              <td><b>T3: <span id="T3">{{dados_experimentos[0][3]}}</span></b></td>
             </tr>
             <tr>
-              <td><b>P0: {{dados_experimentos[0][4]}} </b></td>
-              <td><b>P1: {{dados_experimentos[0][5]}} </b></td>
-              <td><b>P2: {{dados_experimentos[0][6]}} </b></td>
-              <td><b>P3: {{dados_experimentos[0][7]}} </b></td>
+              <td><b>P0: <span id="P0">{{dados_experimentos[0][4]}}</span></b></td>
+              <td><b>P1: <span id="P1">{{dados_experimentos[0][5]}}</span></b></td>
+              <td><b>P2: <span id="P2">{{dados_experimentos[0][6]}}</span></b></td>
+              <td><b>P3: <span id="P3">{{dados_experimentos[0][7]}}</span></b></td>
             </tr>
             <tr>
               <td></td>
-              <td><b>B1: {{dados_experimentos[0][8]}} </b></td>
-              <td><b>B2: {{dados_experimentos[0][9]}} </b></td>
-              <td><b>B3: {{dados_experimentos[0][10]}} </b></td>
+              <td><b>B1: <span id="B1">{{dados_experimentos[0][8]}}</span></b></td>
+              <td><b>B2: <span id="B2">{{dados_experimentos[0][9]}}</span></b></td>
+              <td><b>B3: <span id="B3">{{dados_experimentos[0][10]}}</span></b></td>
             </tr>
           </tbody>
         </table>
@@ -130,6 +123,35 @@
 
   </div>
 
+
+<!--ATUALIZANDO DADOS DA TABELA ///////////////////////////////-->
+  <script>
+    const socket = io();
+
+    socket.on('connect', function () {
+      console.log('Conectado ao servidor Socket.IO');
+    });
+
+    socket.on('update_data', function (data) {
+      console.log('Dados recebidos:', data);
+      document.getElementById('T0').textContent = data.dados_experimentos[0][0];
+      document.getElementById('T1').textContent = data.dados_experimentos[0][1];
+      document.getElementById('T2').textContent = data.dados_experimentos[0][2];
+      document.getElementById('T3').textContent = data.dados_experimentos[0][3];
+      document.getElementById('P0').textContent = data.dados_experimentos[0][4];
+      document.getElementById('P1').textContent = data.dados_experimentos[0][5];
+      document.getElementById('P2').textContent = data.dados_experimentos[0][6];
+      document.getElementById('P3').textContent = data.dados_experimentos[0][7];
+      document.getElementById('B1').textContent = data.dados_experimentos[0][8];
+      document.getElementById('B2').textContent = data.dados_experimentos[0][9];
+      document.getElementById('B3').textContent = data.dados_experimentos[0][10];
+    });
+  </script>
+
+
+
+
+
   <!--PEGANDO DADOS VIA Configurações ///////////////////////////////-->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -174,7 +196,7 @@
 
               // Adiciona o tooltip à content
               document.querySelector('.content').appendChild(tooltip);
-              
+
               // Limpa os campos de entrada
               inputs.forEach(function (input) {
                 input.value = '';
@@ -191,6 +213,9 @@
       });
     });
   </script>
+
+
+
 
 
   <!-- Botão para começar o experimento E BOTÃO PDF ///////////////////////////-->
