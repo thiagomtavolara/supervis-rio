@@ -138,17 +138,17 @@
       // Adiciona um evento de envio ao formulário
       form.addEventListener('submit', function (event) {
         event.preventDefault(); // Evita o envio do formulário
-  
+
         // Seleciona os inputs
         var inputs = document.querySelectorAll('.inputs');
         // Cria um objeto para armazenar os valores dos inputs
         var inputData = {};
-  
+
         // Itera sobre os inputs e armazena seus valores no objeto
         inputs.forEach(function (input) {
           inputData[input.placeholder] = input.value;
         });
-  
+
         // Envia os dados para o servidor
         fetch('/update_data', {
           method: 'POST',
@@ -157,37 +157,41 @@
           },
           body: JSON.stringify(inputData)
         })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            console.log(data.message);
-            // Cria o tooltip
-            var tooltip = document.createElement('div');
-            tooltip.textContent = 'Editado com sucesso!';
-            tooltip.classList.add('tooltip', 'show'); // Adiciona a classe 'show' para tornar o tooltip visível
-  
-            // Remove o tooltip anterior se houver
-            var oldTooltip = document.querySelector('.content .tooltip');
-            if (oldTooltip) {
-              oldTooltip.remove();
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'success') {
+              console.log(data.message);
+              // Cria o tooltip
+              var tooltip = document.createElement('div');
+              tooltip.textContent = 'Editado com sucesso!';
+              tooltip.classList.add('tooltip', 'show'); // Adiciona a classe 'show' para tornar o tooltip visível
+
+              // Remove o tooltip anterior se houver
+              var oldTooltip = document.querySelector('.content .tooltip');
+              if (oldTooltip) {
+                oldTooltip.remove();
+              }
+
+              // Adiciona o tooltip à content
+              document.querySelector('.content').appendChild(tooltip);
+              
+              // Limpa os campos de entrada
+              inputs.forEach(function (input) {
+                input.value = '';
+              });
+              // Oculta o tooltip após alguns segundos
+              setTimeout(function () {
+                tooltip.remove();
+              }, 3000); // 3000 milissegundos = 3 segundos
+            } else {
+              console.error(data.message);
             }
-  
-            // Adiciona o tooltip à content
-            document.querySelector('.content').appendChild(tooltip);
-  
-            // Oculta o tooltip após alguns segundos
-            setTimeout(function () {
-              tooltip.remove();
-            }, 3000); // 3000 milissegundos = 3 segundos
-          } else {
-            console.error(data.message);
-          }
-        })
-        .catch(error => console.error('Error:', error));
+          })
+          .catch(error => console.error('Error:', error));
       });
     });
   </script>
-  
+
 
   <!-- Botão para começar o experimento E BOTÃO PDF ///////////////////////////-->
 
