@@ -34,6 +34,51 @@
       dados</p>
   </div>
 
+  <div class="table-config-atual">
+    <table>
+        <caption>Configurações Atuais</caption>
+        <tr>
+            <th>T0</th>
+            <td><span id="config_T0">{{dados_configuracoes[0][0]}}</span></td>
+            <th>T1</th>
+            <td><span id="config_T1">{{dados_configuracoes[0][1]}}</span></td>
+        </tr>
+        
+        <tr>
+            <th>T2</th>
+            <td><span id="config_T2">{{dados_configuracoes[0][2]}}</span></td>
+            <th>T3</th>
+            <td><span id="config_T3">{{dados_configuracoes[0][3]}}</span></td>
+        </tr>
+       
+        <tr>
+            <th>P0</th>
+            <td><span id="config_P0">{{dados_configuracoes[0][4]}}</span></td>
+            <th>P1</th>
+            <td><span id="config_P1">{{dados_configuracoes[0][5]}}</span></td>
+        </tr>
+  
+        <tr>
+            <th>P2</th>
+            <td><span id="config_P2">{{dados_configuracoes[0][6]}}</span></td>
+            <th>P3</th>
+            <td><span id="config_P3">{{dados_configuracoes[0][7]}}</span></td>
+        </tr>
+      
+        <tr>
+            <th>B1</th>
+            <td><span id="config_B1">{{dados_configuracoes[0][8]}}</span></td>
+            <th>B2</th>
+            <td><span id="config_B2">{{dados_configuracoes[0][9]}}</span></td>
+        </tr>
+        <tr>
+            <th>B3</th>
+            <td><span id="config_B3">{{dados_configuracoes[0][10]}}</span></td>
+        </tr>
+    </table>
+</div>
+  
+
   <div class="container">
     <div class="desenho-planta">
       <img src="{{ url_for('static', filename='desenho planta.jpeg') }}" alt="Supervisório">
@@ -146,6 +191,9 @@
       document.getElementById('B2').textContent = data.dados_experimentos[0][9];
       document.getElementById('B3').textContent = data.dados_experimentos[0][10];
     });
+
+
+  
   </script>
 
 
@@ -155,23 +203,17 @@
   <!--PEGANDO DADOS VIA Configurações ///////////////////////////////-->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Seleciona o formulário
       var form = document.getElementById('form');
-      // Adiciona um evento de envio ao formulário
       form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Evita o envio do formulário
-
-        // Seleciona os inputs
+        event.preventDefault();
+  
         var inputs = document.querySelectorAll('.inputs');
-        // Cria um objeto para armazenar os valores dos inputs
         var inputData = {};
-
-        // Itera sobre os inputs e armazena seus valores no objeto
+  
         inputs.forEach(function (input) {
           inputData[input.placeholder] = input.value;
         });
-
-        // Envia os dados para o servidor
+  
         fetch('/update_data', {
           method: 'POST',
           headers: {
@@ -179,43 +221,51 @@
           },
           body: JSON.stringify(inputData)
         })
-          .then(response => response.json())
-          .then(data => {
-            if (data.status === 'success') {
-              console.log(data.message);
-              // Cria o tooltip
-              var tooltip = document.createElement('div');
-              tooltip.textContent = 'Editado com sucesso!';
-              tooltip.classList.add('tooltip', 'show'); // Adiciona a classe 'show' para tornar o tooltip visível
-
-              // Remove o tooltip anterior se houver
-              var oldTooltip = document.querySelector('.content .tooltip');
-              if (oldTooltip) {
-                oldTooltip.remove();
-              }
-
-              // Adiciona o tooltip à content
-              document.querySelector('.content').appendChild(tooltip);
-
-              // Limpa os campos de entrada
-              inputs.forEach(function (input) {
-                input.value = '';
-              });
-              // Oculta o tooltip após alguns segundos
-              setTimeout(function () {
-                tooltip.remove();
-              }, 3000); // 3000 milissegundos = 3 segundos
-            } else {
-              console.error(data.message);
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            console.log(data.message);
+            var tooltip = document.createElement('div');
+            tooltip.textContent = 'Editado com sucesso!';
+            tooltip.classList.add('tooltip', 'show');
+  
+            var oldTooltip = document.querySelector('.content .tooltip');
+            if (oldTooltip) {
+              oldTooltip.remove();
             }
-          })
-          .catch(error => console.error('Error:', error));
+  
+            document.querySelector('.content').appendChild(tooltip);
+  
+            inputs.forEach(function (input) {
+              input.value = '';
+            });
+  
+            // Atualizar os elementos HTML com os novos valores
+            document.getElementById('config_T0').textContent = inputData['T0'];
+            document.getElementById('config_T1').textContent = inputData['T1'];
+            document.getElementById('config_T2').textContent = inputData['T2'];
+            document.getElementById('config_T3').textContent = inputData['T3'];
+            document.getElementById('config_P0').textContent = inputData['P0'];
+            document.getElementById('config_P1').textContent = inputData['P1'];
+            document.getElementById('config_P2').textContent = inputData['P2'];
+            document.getElementById('config_P3').textContent = inputData['P3'];
+            document.getElementById('config_B1').textContent = inputData['B1'];
+            document.getElementById('config_B2').textContent = inputData['B2'];
+            document.getElementById('config_B3').textContent = inputData['B3'];
+  
+            setTimeout(function () {
+              tooltip.remove();
+            }, 3000);
+          } else {
+            console.error(data.message);
+          }
+        })
+        .catch(error => console.error('Error:', error));
       });
     });
   </script>
-
-
-
+  
+  
 
 
   <!-- Botão para começar o experimento E BOTÃO PDF ///////////////////////////-->
@@ -347,25 +397,25 @@
               datasets: [
                 {
                   label: 'T0',
-                  data: [20, 30],
+                  data: [],
                   borderColor: '#4CAF50',
                   backgroundColor: 'transparent',
                 },
                 {
                   label: 'T1',
-                  data: [300, 53, 10, 65, 70],
+                  data: [],
                   borderColor: '#2196F3',
                   backgroundColor: 'transparent',
                 },
                 {
                   label: 'T2',
-                  data: [50, 20, 200, 56, 48],
+                  data: [],
                   borderColor: '#FF9800',
                   backgroundColor: 'transparent',
                 },
                 {
                   label: 'T3',
-                  data: [51, 51, 541, 152, 12],
+                  data: [],
                   borderColor: '#9C27B0',
                   backgroundColor: 'transparent',
                 },

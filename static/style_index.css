@@ -89,6 +89,45 @@ body {
     /* Centraliza o texto com margem */
 }
 
+.table-config-atual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: 20px auto;
+}
+
+.table-config-atual table {
+    border-collapse: collapse;
+    text-align: center; /* Centraliza o texto na tabela */
+    width: auto; /* Permite que a tabela se ajuste ao conteúdo */
+}
+
+.table-config-atual th, .table-config-atual td {
+    border: 1px solid var(--color-white);
+    padding: 8px;
+    text-align: center; /* Centraliza o texto em cada célula */
+    vertical-align: middle; /* Centraliza o texto verticalmente */
+}
+
+.table-config-atual th {
+    background-color: var(--color-blue6);
+    color: var(--color-dark2);
+}
+
+.table-config-atual caption {
+    caption-side: top;
+    font-size: 1.5em;
+    margin: 10px 0;
+    text-align: center; /* Centraliza o texto do caption */
+}
+
+
+
+
+
+
+
 .tooltip {
     display: none;
     /* Começa oculto por padrão */

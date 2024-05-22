@@ -145,7 +145,7 @@ def obter_numero_do_ultimo_id():
 
 #criar_banco_dados()
 #inserir_banco_dados(100, 22, 25.2, 22.8, 10.1, 9.8, 9.9, 10.2, 3.5, 4.0, 3.8)
-# atualizar_banco_dados(1, 10, 62, 25.2, 22.8, 10.1, 9.8, 9.9, 10.2, 3.5, 4.0, 3.8)
+atualizar_banco_dados(1, 1000, 62, 25.2, 22.8, 10.1, 9.8, 9.9, 10.2, 3.5, 4.0, 3.8)
 #deletar_banco_dados(1)
 #imprimir_banco_dados()
 
